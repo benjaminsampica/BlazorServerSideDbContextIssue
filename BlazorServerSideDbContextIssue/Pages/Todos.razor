@@ -1,0 +1,17 @@
+﻿@using Microsoft.EntityFrameworkCore
+
+@foreach(var item in Items)
+{
+    <br/> @item.Title 
+}
+
+@code {
+    [Inject] private ApplicationDbContext ApplicationDbContext { get; set; }
+
+    private List<Todo> Items { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        Items = await ApplicationDbContext.Todos.ToListAsync();
+    }
+}
